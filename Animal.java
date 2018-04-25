@@ -4,7 +4,6 @@ public abstract class Animal{
     protected int energie;
     protected int age;//en mois
     protected final char sexe;
-    protected Foret f;
 
 ////////////////////CONSTRUCTEURS///////////////////////
     public Animal(int x, int y, int age, char sexe){
@@ -13,7 +12,6 @@ public abstract class Animal{
 	this.sexe = sexe ;// 'm' ou 'f' pour les 2 sexes
 	energie = 100 ;//énergie de base pour les animaux
 	this.age = age;
-	this.f = f;
     }
 
     public Animal(int x, int y){ //Pour les bébés
@@ -82,9 +80,8 @@ public abstract class Animal{
 
     //////////////////////////////////////////////
 
-//public abstract void sentir();
 //public abstract double seBattre(Animal a);
-
+public abstract Animal seReproduire(Animal a, Foret f);
 
     
 }
