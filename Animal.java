@@ -1,19 +1,21 @@
 public abstract class Animal{
     protected int x;
     protected int y;
+    protected int directionX;
+    protected int directionY;
     protected int energie;
     protected int age;//en mois
     protected final char sexe;
-    protected Foret f;
 
-////////////////////CONSTRUCTEURS///////////////////////
+    ////////////////////////////CONSTRUCTEURS////////////////////////////
     public Animal(int x, int y, int age, char sexe){
 	this.x = x;// position
 	this.y = y;// de l'animal
 	this.sexe = sexe ;// 'm' ou 'f' pour les 2 sexes
 	energie = 100 ;//énergie de base pour les animaux
 	this.age = age;
-	this.f = f;
+	directionX = (int)(Math.random()*3)-1;
+	directionY = (int)(Math.random()*3)-1;
     }
 
     public Animal(int x, int y){ //Pour les bébés
@@ -25,24 +27,27 @@ public abstract class Animal{
 	    sexe = 'm';
 	energie = 100;
 	age = 0;
-	
+	directionX = (int)(Math.random()*3)-1;
+	directionY = (int)(Math.random()*3)-1;
     }
 
     public Animal(){
-	x = (int)Math.random()*Constante.tailleX;
-	y = (int)Math.random()*Constante.tailleY;
+	x = (int)(Math.random()*Constante.tailleX);
+	y = (int)(Math.random()*Constante.tailleY);
+	
 	age = 12;
 	energie = (int)Math.random()*50 + 50;
 	if(Math.random() > 0.5)
 	    sexe = 'f';
 	else
 	    sexe = 'm';
-	   
+	directionX = (int)(Math.random()*3)-1;
+	directionY = (int)(Math.random()*3)-1;
     }
+	
 
 
-
-////////////////////SETTEURS///////////////////////
+    ////////////////////////////SETTEURS////////////////////////////
 
     public void setX(int x){
 	this.x = x;
@@ -58,7 +63,7 @@ public abstract class Animal{
 
     
     
-////////////////////GETTEURS///////////////////////
+    ////////////////////////////GETTEURS////////////////////////////
 
     public int getX(){
 	return x;
@@ -80,11 +85,21 @@ public abstract class Animal{
 	return sexe;
     }
 
-    //////////////////////////////////////////////
+    ////////////////////////////ACTIONS////////////////////////////
+    public void marcher(){
+	if((x+directionX >= 0) && (x+directionX < Constante.tailleY))
+	    x += directionX;
+	if((y+directionY >= 0) && (y+directionY < Constante.tailleY))
+	    y += directionY;
+	energie -= Math.abs(directionX) + Math.abs(directionY);
+	directionX = (int)(Math.random()*3)-1;
+	directionY = (int)(Math.random()*3)-1;
+    }
 
-//public abstract void sentir();
-//public abstract double seBattre(Animal a);
 
+
+    //public abstract double seBattre(Animal a);
+    public abstract Animal seReproduire(Animal a, Foret f);
 
     
 }

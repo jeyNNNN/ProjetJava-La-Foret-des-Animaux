@@ -6,7 +6,7 @@ public class Plante extends Verdure{
         this.comestible = comestible;
         this.taille = taille;
     } 
-	Plante(boolean comestible){
+    Plante(boolean comestible){
         this.comestible = comestible;
         this.taille = (int)(Math.random()*11);
     }
