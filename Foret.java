@@ -49,23 +49,42 @@ public class Foret{
 	Foret foretStock = this.clone();
 	for(int i=0;i<longueur;i++){
 	    for(int j=0;j<largeur;j++){
-		if (!(foret[i][j].animaux.isEmpty())){
-		    for(int k=0;k<foret[i][j].animaux.size();k++){
-			foret[i][j].getAnimaux().get(k).marcher();
-			if(foret[i][j].getAnimaux().get(k) instanceof Loup){
-			    ((Loup)(foret[i][j].getAnimaux().get(k))).sentirProie(this);
-			}
-						
-						
-			foretStock.addAnimal(foret[i][j].animaux.get(k));
-		    }
-		}
+		    if (!(foret[i][j].animaux.isEmpty())){
+		      for(int k=0;k<foret[i][j].animaux.size();k++){
+		        
+		        
+		      // Marcher
+		    	foret[i][j].getAnimaux().get(k).marcher();
+		    	
+		    	// Sentir + Chasser + Fuir
+		    	// Une fois tous les prédateurs en place 
+		    	// A la place de instanceof Loup ===> instanceof Predateur
+			
+		    	if(foret[i][j].getAnimaux().get(k) instanceof Loup){
+	    		    ((Loup)(foret[i][j].getAnimaux().get(k))).sentirProie(this);
+		    	}
+			
+		    	// Manger eventuellement seBattre à rajouter
+		    	mangerList(foret[i][j].getAnimaux());
+		    	foretStock.addAnimal(foret[i][j].animaux.get(k));
+			
+			    if(foret[i][j].getTerrain() instanceof Eau){
+			        boire(foret[i][j].getAnimaux());
+			    }
+		      }
+	    	}
 	    }
 	}
 	foretStock.afficherForet();
 
 	return foretStock;
     }
+	
+	public void boire(ArrayList<Animal> list){
+	    for(Animal a : list){
+	        a.boire();
+	    }
+	}
 	
     public Foret clone(){
 	Foret CloneForet;
