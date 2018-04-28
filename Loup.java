@@ -67,20 +67,26 @@ public class Loup extends Animal implements Predateur, ATerrestre{
 	
 
 
-    public void chasser(Animal a){
-	if(this.x - a.x > 0){
-	    directionX = Math.min(this.x - a.x,this.vitesse);
-	}
-	else{
-	    directionX = Math.max(this.x - a.x,this.vitesse);	
-	}
-
-	if(this.y- a.y> 0){
-	    directionY= Math.min(this.y - a.y,this.vitesse);
-	}
-	else{
-	    directionY = Math.max(this.y - a.y,this.vitesse);	
-	}
+    public void chasser(Animal a,Foret f){
+    	System.out.println(a.getClass());
+    	
+    
+		if(a.x > this.x){
+			directionX = Math.min(a.x - this.x,vitesse);
+		}
+		else{
+			directionX = Math.max(a.x - this.x,-vitesse);
+		}
+		
+		if(a.y > this.y){
+			directionY = Math.min(a.y - this.y,vitesse);
+		}
+		else{
+			directionY = Math.max(a.y - this.y,-vitesse);
+		}
+    
+    	x+= directionX;
+    	y+= directionY;
     }
 
 
