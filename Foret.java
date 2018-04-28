@@ -51,12 +51,21 @@ public class Foret{
 	    for(int j=0;j<largeur;j++){
 		if (!(foret[i][j].animaux.isEmpty())){
 		    for(int k=0;k<foret[i][j].animaux.size();k++){
+		        
+		        
+		    // Marcher
 			foret[i][j].getAnimaux().get(k).marcher();
+			
+			// Sentir + Chasser + Fuir
+			// Une fois tous les prédateurs en place 
+			// A la place de instanceof Loup ===> instanceof Predateur
+			
 			if(foret[i][j].getAnimaux().get(k) instanceof Loup){
 			    ((Loup)(foret[i][j].getAnimaux().get(k))).sentirProie(this);
 			}
-						
-						
+			
+			// Manger eventuellement seBattre à rajouter
+			mangerList(foret[i][j].getAnimaux());
 			foretStock.addAnimal(foret[i][j].animaux.get(k));
 		    }
 		}
@@ -66,6 +75,31 @@ public class Foret{
 
 	return foretStock;
     }
+	
+	
+	
+	// ++ Rajouter seBattre ???
+	public void mangerList(ArrayList<Animal> list){
+	    for(Animal a : list){
+	        for(Animal b : list){
+	            
+	            // Remplacer Loup par prédateur une fois tout en place
+	            if(a instanceof Loup){
+	                if(((Loup)(a)).estProie(b)){
+	                    
+	                    
+	                    list.remove(b);
+	                    // Rappel de manger sur la list car comme la liste à changer de size, si on ne rappelle pas segmentation fault
+	                    // eventuellement créer un attribut rassasié, qui empêche un loup de manger 2 proies ???
+	                    mangerList(list);
+	                    
+	                    // Pour sortir & éviter le segmentation fault
+	                    return;
+	                }
+	            }
+	        }
+	    }
+	}
 	
     public Foret clone(){
 	Foret CloneForet;
